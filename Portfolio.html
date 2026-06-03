@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Aushikar Ganesh · Cloud Operations Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#08071a;--bg2:#0d0b24;
+  --p1:#7c3aed;--p2:#ec4899;--p3:#06b6d4;--p4:#10b981;
+  --text:#f1f0fe;--muted:#8b87b8;
+  --glass:rgba(255,255,255,0.04);
+  --glass-b:rgba(255,255,255,0.1);
+  --disp:'Plus Jakarta Sans',sans-serif;
+  --body:'Plus Jakarta Sans',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* ── BACKGROUND ── */
+.mesh{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 15%,rgba(124,58,237,0.18) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 35% at 90% 10%,rgba(6,182,212,0.14) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 50% at 50% 90%,rgba(236,72,153,0.12) 0%,transparent 70%),
+    radial-gradient(ellipse 35% 40% at 85% 70%,rgba(16,185,129,0.1) 0%,transparent 70%);
+}
+.mesh-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:70px;
+  background:rgba(8,7,26,0.75);backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-logo{
+  font-family:var(--disp);font-size:1.1rem;font-weight:800;
+  background:linear-gradient(135deg,var(--p3),var(--p1),var(--p2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:-0.02em;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-size:0.82rem;font-weight:500;text-decoration:none;
+  color:var(--muted);transition:color 0.25s;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--p3);}
+.nav-cta{
+  padding:0.5rem 1.2rem;font-size:0.78rem;font-weight:600;border-radius:8px;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  color:#fff;text-decoration:none;transition:all 0.25s;
+  box-shadow:0 0 20px rgba(124,58,237,0.3);
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 25px rgba(124,58,237,0.5);}
+.nav-mob{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;}
+.nav-resume{
+  padding:0.45rem 1rem;font-size:0.75rem;font-weight:600;border-radius:8px;
+  border:1px solid rgba(6,182,212,0.4);color:var(--p3);text-decoration:none;
+  transition:all 0.25s;white-space:nowrap;
+}
+.nav-resume:hover{background:rgba(6,182,212,0.1);border-color:var(--p3);}
+
+/* ── GLASS ── */
+.glass{background:var(--glass);border:1px solid var(--glass-b);border-radius:20px;backdrop-filter:blur(12px);}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:7rem 5% 4rem;
+  position:relative;z-index:1;
+}
+
+/* Profile image */
+.hero-avatar{
+  width:160px;height:160px;border-radius:50%;
+  background:linear-gradient(135deg,var(--p1),var(--p3));
+  padding:3px;margin-bottom:2rem;
+  animation:chipIn 0.5s ease both;
+  position:relative;
+  box-shadow:0 0 50px rgba(124,58,237,0.5);
+}
+.hero-avatar-inner{
+  width:100%;height:100%;border-radius:50%;
+  background:var(--bg2);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-avatar-inner img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+}
+.avatar-placeholder{
+  width:100%;height:100%;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.3rem;
+  background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(6,182,212,0.2));
+}
+.avatar-placeholder span:first-child{font-size:2.8rem;line-height:1;}
+.avatar-placeholder span:last-child{
+  font-size:0.55rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+/* Rotating ring */
+.hero-avatar::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--p1),var(--p2),var(--p3),var(--p4),var(--p1));
+  z-index:-1;animation:spinRing 4s linear infinite;
+}
+.hero-avatar::after{
+  content:'';position:absolute;inset:-2px;border-radius:50%;
+  background:var(--bg);z-index:-1;
+}
+@keyframes spinRing{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+.hero-chip{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  padding:0.45rem 1rem;border-radius:100px;
+  background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);
+  font-size:0.75rem;font-weight:600;color:var(--p3);
+  letter-spacing:0.06em;margin-bottom:1.5rem;
+  animation:chipIn 0.6s 0.1s ease both;
+}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:var(--p4);animation:pulseDot 2s infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.6);}}
+@keyframes chipIn{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:none;}}
+
+.hero-h1{
+  font-size:clamp(3rem,9vw,6.5rem);font-weight:800;
+  line-height:1.0;letter-spacing:-0.04em;margin-bottom:1.25rem;
+  animation:heroIn 0.7s 0.2s ease both;
+}
+.h1-line1{display:block;color:var(--text);}
+.h1-line2{
+  display:block;
+  background:linear-gradient(135deg,var(--p1) 0%,var(--p2) 40%,var(--p3) 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+@keyframes heroIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+
+.hero-sub{
+  font-size:clamp(0.9rem,2vw,1.1rem);color:var(--muted);
+  max-width:540px;line-height:1.8;margin-bottom:2.5rem;
+  animation:heroIn 0.7s 0.3s ease both;
+}
+.hero-sub strong{color:var(--text);}
+
+.hero-actions{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:heroIn 0.7s 0.4s ease both;
+}
+.btn-cos{
+  padding:0.85rem 2rem;border-radius:12px;font-family:var(--body);
+  font-size:0.88rem;font-weight:600;text-decoration:none;
+  cursor:pointer;border:none;transition:all 0.3s;
+}
+.btn-cos.pri{
+  background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;
+  box-shadow:0 4px 20px rgba(124,58,237,0.35);
+}
+.btn-cos.pri:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(124,58,237,0.5);}
+.btn-cos.sec{background:var(--glass);border:1px solid var(--glass-b);color:var(--text);}
+.btn-cos.sec:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px);}
+
+.hero-metrics{
+  display:flex;gap:1rem;margin-top:3.5rem;flex-wrap:wrap;justify-content:center;
+  animation:heroIn 0.7s 0.5s ease both;
+}
+.metric-pill{padding:1rem 2rem;border-radius:14px;text-align:center;transition:all 0.3s;}
+.metric-pill:hover{transform:translateY(-4px);}
+.mp-num{
+  font-size:2rem;font-weight:800;display:block;line-height:1;margin-bottom:0.35rem;
+}
+.mp-label{font-size:0.7rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+
+/* ── QUOTE BANNER ── */
+#quote-band{
+  position:relative;z-index:1;
+  padding:4.5rem 5%;
+  background:linear-gradient(135deg,rgba(124,58,237,0.12) 0%,rgba(6,182,212,0.08) 50%,rgba(236,72,153,0.1) 100%);
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  text-align:center;
+  overflow:hidden;
+}
+#quote-band::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 100% at 50% 50%,rgba(124,58,237,0.08),transparent);
+  pointer-events:none;
+}
+.quote-mark{
+  font-size:6rem;line-height:0.5;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:block;margin-bottom:1rem;font-family:Georgia,serif;
+  position:relative;z-index:1;
+}
+.quote-text{
+  font-size:clamp(1.2rem,3.5vw,2rem);font-weight:700;
+  line-height:1.4;letter-spacing:-0.02em;
+  max-width:700px;margin:0 auto 1.25rem;
+  background:linear-gradient(135deg,var(--text) 0%,var(--p3) 60%,var(--p2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  position:relative;z-index:1;
+}
+.quote-attr{
+  font-size:0.8rem;font-weight:500;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+  position:relative;z-index:1;
+}
+.quote-attr::before{content:'— ';}
+
+/* ── SECTIONS COMMON ── */
+section{padding:7rem 5%;position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.section-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--p3);margin-bottom:1rem;
+}
+.section-tag::before{content:'';width:24px;height:2px;background:var(--p3);border-radius:2px;}
+.section-h2{
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:800;
+  letter-spacing:-0.03em;line-height:1.1;margin-bottom:3rem;
+}
+.section-h2 span{
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── ABOUT ── */
+.about-g{display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:start;}
+.about-p{font-size:0.95rem;color:var(--muted);line-height:1.85;margin-bottom:1.25rem;}
+.about-p strong{color:var(--text);}
+.cert-cos{display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem;}
+.cert-cos-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.9rem 1.25rem;border-radius:14px;transition:all 0.25s;
+}
+.cert-cos-item:hover{transform:translateX(6px);}
+.cci-info{display:flex;align-items:center;gap:0.75rem;}
+.cci-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.cci-name{font-size:0.82rem;font-weight:600;color:var(--text);}
+.cci-date{font-size:0.7rem;color:var(--muted);}
+.cci-badge{font-size:0.65rem;font-weight:700;letter-spacing:0.06em;padding:0.25rem 0.6rem;border-radius:6px;}
+.cos-qstats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.cos-qs{padding:1.5rem;border-radius:16px;text-align:center;transition:all 0.3s;}
+.cos-qs:hover{transform:translateY(-4px);}
+.cos-qs-num{font-size:2.5rem;font-weight:800;display:block;line-height:1;margin-bottom:0.4rem;}
+.cos-qs-label{font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+
+/* ── SKILLS ── */
+.skills-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.sk-card{padding:1.75rem;border-radius:20px;transition:all 0.3s;cursor:default;}
+.sk-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.15);}
+.sk-head{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;}
+.sk-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.sk-h{font-size:0.9rem;font-weight:700;}
+.sk-chips{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.sk-chip{
+  padding:0.3rem 0.75rem;border-radius:8px;font-size:0.72rem;font-weight:500;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+  color:var(--muted);transition:all 0.2s;
+}
+.sk-chip:hover{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.35);color:var(--text);}
+.sk-chip.prod{
+  background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.25);
+  color:#6ee7b7;
+}
+
+/* ── PROJECTS ── */
+.proj-g{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.proj-cos{padding:2rem;border-radius:22px;transition:all 0.35s;position:relative;overflow:hidden;}
+.proj-cos::before{
+  content:'';position:absolute;inset:0;border-radius:22px;
+  background:linear-gradient(135deg,rgba(124,58,237,0.07),rgba(236,72,153,0.05));
+  opacity:0;transition:opacity 0.35s;
+}
+.proj-cos:hover{transform:translateY(-8px);border-color:rgba(124,58,237,0.3);}
+.proj-cos:hover::before{opacity:1;}
+.proj-cos:hover .proj-arrow{transform:translate(4px,-4px);opacity:1;}
+.proj-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+.proj-idx{font-size:0.68rem;font-weight:700;letter-spacing:0.12em;color:var(--p3);text-transform:uppercase;}
+.proj-arrow{font-size:1.2rem;color:var(--p1);opacity:0.4;transition:all 0.25s;}
+.proj-title{font-size:1.1rem;font-weight:700;margin-bottom:0.7rem;}
+.proj-desc{font-size:0.82rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem;}
+.proj-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem;}
+.tech-cos{
+  padding:0.25rem 0.65rem;border-radius:7px;font-size:0.68rem;font-weight:600;
+  background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.2);color:var(--p1);
+}
+.proj-lnks{display:flex;gap:1rem;}
+.proj-lnk{
+  font-size:0.75rem;font-weight:600;text-decoration:none;
+  color:var(--muted);transition:color 0.2s;display:inline-flex;align-items:center;gap:0.3rem;
+  cursor:pointer;
+}
+.proj-lnk:hover{color:var(--p2);}
+
+/* ── EXPERIENCE ── */
+.exp-tl{position:relative;padding-left:2rem;}
+.exp-tl::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--p3),var(--p1),transparent);
+}
+.exp-item{position:relative;margin-bottom:3rem;padding-left:2rem;}
+.exp-dot{position:absolute;left:-2.45rem;top:0.4rem;width:13px;height:13px;border-radius:50%;border:2px solid var(--bg);}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
+.exp-role{font-size:1.1rem;font-weight:700;margin-bottom:0.25rem;}
+.exp-badge{padding:0.3rem 0.9rem;border-radius:100px;font-size:0.7rem;font-weight:600;white-space:nowrap;}
+.exp-company{font-size:0.82rem;font-weight:500;margin-bottom:0.75rem;}
+.exp-body{padding:1.25rem 1.5rem;border-radius:16px;}
+.exp-pts{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.exp-pts li{font-size:0.82rem;color:var(--muted);line-height:1.7;padding-left:1.25rem;position:relative;}
+.exp-pts li::before{content:'▸';position:absolute;left:0;color:var(--p2);font-size:0.65rem;top:0.2rem;}
+.exp-pts li strong{color:var(--text);}
+.edu-cos{padding:1.5rem 2rem;border-radius:18px;display:flex;align-items:center;gap:1.5rem;margin-top:1.5rem;transition:all 0.3s;}
+.edu-cos:hover{transform:translateY(-3px);}
+.edu-icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(6,182,212,0.2));border:1px solid rgba(124,58,237,0.25);}
+.edu-deg{font-size:0.95rem;font-weight:700;margin-bottom:0.25rem;}
+.edu-school{font-size:0.82rem;color:var(--p3);margin-bottom:0.2rem;font-weight:500;}
+.edu-period{font-size:0.75rem;color:var(--muted);}
+
+/* ── CONTACT (links only, no form) ── */
+#contact{padding:7rem 5%;position:relative;z-index:1;max-width:1100px;margin:0 auto;}
+.contact-solo{max-width:680px;margin:0 auto;text-align:center;}
+.contact-desc{font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:3rem;}
+.soc-grid{
+  display:flex;flex-direction:column;gap:0.85rem;
+  max-width:500px;margin:0 auto;
+}
+.soc-cos-a{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.5rem;border-radius:14px;
+  text-decoration:none;color:var(--muted);font-size:0.88rem;font-weight:500;
+  transition:all 0.25s;width:100%;
+}
+.soc-cos-a:hover{color:var(--text);transform:translateX(6px);border-color:rgba(124,58,237,0.35);}
+.soc-ico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.soc-label{display:flex;flex-direction:column;gap:0.1rem;}
+.soc-label-title{color:var(--text);font-weight:600;font-size:0.88rem;line-height:1;}
+.soc-label-sub{font-size:0.73rem;color:var(--muted);line-height:1;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:2rem 5%;position:relative;z-index:1;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;
+  font-size:0.78rem;color:var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+.rise{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.rise.up{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-g{grid-template-columns:1fr;}
+  .skills-g{grid-template-columns:1fr 1fr;}
+  .proj-g{grid-template-columns:1fr;}
+  .nav-links,.nav-cta{display:none;}
+  .nav-mob{display:block;}
+  .soc-grid{grid-template-columns:1fr;}
+  .hero-metrics{gap:0.75rem;}
+}
+@media(max-width:600px){
+  .skills-g{grid-template-columns:1fr;}
+  .cos-qstats{grid-template-columns:1fr 1fr;}
+  .hero-h1{font-size:clamp(2.5rem,13vw,4rem);}
+}
+</style>
+</head>
+<body>
+<div class="mesh"></div>
+<div class="mesh-grid"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Aushikar.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <a href="Aushikar_Ganesh_Resume.pdf" download class="nav-resume">⬇ Resume</a>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+  </div>
+  <button class="nav-mob" id="mob-btn">☰</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- Profile image — replace src with your photo when deploying -->
+  <div class="hero-avatar">
+    <div class="hero-avatar-inner">
+      <div class="avatar-placeholder" id="avatar-ph">
+        <img src="Photo.jpeg" alt="Aushikar Ganesh" />
+      </div>
+      <!-- When you have your photo, replace the div above with:
+           <img src="your-photo.jpg" alt="Aushikar Ganesh" />  -->
+    </div>
+  </div>
+
+  <div class="hero-chip"><div class="chip-dot"></div>Open to Opportunities</div>
+
+  <h1 class="hero-h1">
+    <span class="h1-line1">Aushikar</span>
+    <span class="h1-line2">Ganesh</span>
+  </h1>
+
+  <p class="hero-sub">
+    <strong>Cloud Operations Engineer</strong> · AWS Certified Solutions Architect ·
+    Automating infrastructure, monitoring production, and building cloud-native systems that scale.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#projects" class="btn-cos pri">View Projects</a>
+    <a href="#contact" class="btn-cos sec">Get In Touch</a>
+  </div>
+
+  <div class="hero-metrics">
+    <div class="metric-pill glass">
+      <span class="mp-num" style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">1000+</span>
+      <span class="mp-label">Devices Automated</span>
+    </div>
+    <div class="metric-pill glass">
+      <span class="mp-num" style="background:linear-gradient(135deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">50–60</span>
+      <span class="mp-label">Servers Patched / Mo</span>
+    </div>
+    <div class="metric-pill glass">
+      <span class="mp-num" style="background:linear-gradient(135deg,#10b981,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">100%</span>
+      <span class="mp-label">Patch Compliance</span>
+    </div>
+    <div class="metric-pill glass">
+      <span class="mp-num" style="background:linear-gradient(135deg,#ec4899,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2</span>
+      <span class="mp-label">AWS Certifications</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUOTE BAND ── -->
+<div id="quote-band">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">Cloud isn't just something I learn —<br/>it's something I build my future on.</p>
+  <span class="quote-attr">Aushikar Ganesh · Cloud Operations Engineer</span>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">About Me</div>
+  <h2 class="section-h2">Building the <span>infrastructure</span> of tomorrow</h2>
+  <div class="about-g">
+    <div>
+      <p class="about-p rise">I'm a <strong>Cloud Operations Engineer at Cognizant</strong>, working with AWS production infrastructure daily — monitoring systems, automating patching, and building cloud-native tools that make operations faster and more reliable.</p>
+      <p class="about-p rise">I go beyond my assigned responsibilities: I independently built a <strong>Power Automate + Graph API</strong> solution that delivers daily Intune compliance reports across 1,000+ client devices — something my team now depends on every day.</p>
+      <p class="about-p rise">AWS Certified twice over, CCNA-trained in networking fundamentals, and always building personal projects to push my skills further — from serverless architectures to Kubernetes and Terraform.</p>
+
+      <div class="cert-cos rise" style="margin-top:1.5rem">
+        <div class="cert-cos-item glass">
+          <div class="cci-info">
+            <div class="cci-icon" style="background:rgba(255,153,0,0.15)">🏆</div>
+            <div><div class="cci-name">AWS Solutions Architect – Associate</div><div class="cci-date">Credential ID: 83dabaf0548f404da8dcdc8ddbaccccf</div></div>
+          </div>
+          <div class="cci-badge" style="background:rgba(16,185,129,0.12);color:#10b981">May 2025</div>
+        </div>
+        <div class="cert-cos-item glass">
+          <div class="cci-info">
+            <div class="cci-icon" style="background:rgba(6,182,212,0.15)">☁️</div>
+            <div><div class="cci-name">AWS Certified Cloud Practitioner</div><div class="cci-date">Credential ID: 44783f7efc8d4cf38ab6d43ddffa8a74</div></div>
+          </div>
+          <div class="cci-badge" style="background:rgba(6,182,212,0.12);color:#06b6d4">Nov 2024</div>
+        </div>
+        <div class="cert-cos-item glass">
+          <div class="cci-info">
+            <div class="cci-icon" style="background:rgba(124,58,237,0.15)">🚀</div>
+            <div><div class="cci-name">Multi Cloud & DevOps Bootcamp</div><div class="cci-date">Udemy / Online Platform</div></div>
+          </div>
+          <div class="cci-badge" style="background:rgba(124,58,237,0.12);color:#a78bfa">Certified</div>
+        </div>
+        <div class="cert-cos-item glass">
+          <div class="cci-info">
+            <div class="cci-icon" style="background:rgba(16,185,129,0.15)">🌐</div>
+            <div><div class="cci-name">CCNA R&S — 4 Modules</div><div class="cci-date">Cisco Networking Academy · 2019</div></div>
+          </div>
+          <div class="cci-badge" style="background:rgba(16,185,129,0.12);color:#10b981">Certified</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cos-qstats rise" style="transition-delay:0.15s">
+      <div class="cos-qs glass">
+        <span class="cos-qs-num" style="background:linear-gradient(135deg,var(--p3),var(--p1));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2+</span>
+        <span class="cos-qs-label">Years at Cognizant</span>
+      </div>
+      <div class="cos-qs glass">
+        <span class="cos-qs-num" style="background:linear-gradient(135deg,var(--p2),var(--p1));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">5</span>
+        <span class="cos-qs-label">Projects Built</span>
+      </div>
+      <div class="cos-qs glass">
+        <span class="cos-qs-num" style="background:linear-gradient(135deg,var(--p4),var(--p3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">6</span>
+        <span class="cos-qs-label">Certifications</span>
+      </div>
+      <div class="cos-qs glass">
+        <span class="cos-qs-num" style="background:linear-gradient(135deg,var(--p1),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</span>
+        <span class="cos-qs-label">Cloud Platforms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">Expertise</div>
+  <h2 class="section-h2">Technical <span>Stack</span></h2>
+  <p style="font-size:0.75rem;color:var(--muted);margin-bottom:2rem;display:flex;align-items:center;gap:0.5rem;">
+    <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:rgba(16,185,129,0.5);border:1px solid #10b981;"></span>
+    Green badges = production experience
+  </p>
+  <div class="skills-g">
+    <div class="sk-card glass rise">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(255,153,0,0.12)">☁️</div><div class="sk-h" style="color:#f59e0b">AWS Cloud</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip prod">EC2</span><span class="sk-chip prod">S3</span>
+        <span class="sk-chip prod">IAM</span><span class="sk-chip prod">VPC</span>
+        <span class="sk-chip prod">CloudWatch</span><span class="sk-chip prod">SSM</span>
+        <span class="sk-chip prod">Route53</span><span class="sk-chip">Lambda</span>
+        <span class="sk-chip">API Gateway</span><span class="sk-chip">DynamoDB</span>
+        <span class="sk-chip">SNS</span><span class="sk-chip">RDS</span>
+        <span class="sk-chip">ALB</span><span class="sk-chip">ASG</span>
+      </div>
+    </div>
+    <div class="sk-card glass rise" style="transition-delay:.08s">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(6,182,212,0.12)">⚡</div><div class="sk-h" style="color:#06b6d4">Azure & Automation</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip prod">Power Automate</span><span class="sk-chip prod">Graph API</span>
+        <span class="sk-chip prod">Azure App Reg.</span><span class="sk-chip prod">Intune</span>
+        <span class="sk-chip">GCP</span>
+      </div>
+    </div>
+    <div class="sk-card glass rise" style="transition-delay:.16s">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(124,58,237,0.12)">🔧</div><div class="sk-h" style="color:#a78bfa">IaC & Patching</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip prod">AWS SSM Patch Mgr</span>
+        <span class="sk-chip">Terraform</span><span class="sk-chip">CloudFormation</span>
+        <span class="sk-chip">Ansible</span>
+      </div>
+    </div>
+    <div class="sk-card glass rise" style="transition-delay:.24s">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(16,185,129,0.12)">🐋</div><div class="sk-h" style="color:#10b981">Containers & CI/CD</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip">Docker</span><span class="sk-chip">Kubernetes</span>
+        <span class="sk-chip">AWS EKS</span><span class="sk-chip">GitHub Actions</span>
+        <span class="sk-chip">Jenkins</span><span class="sk-chip">GitLab CI</span>
+      </div>
+    </div>
+    <div class="sk-card glass rise" style="transition-delay:.32s">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(236,72,153,0.12)">📊</div><div class="sk-h" style="color:#ec4899">Monitoring</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip prod">CloudWatch</span>
+        <span class="sk-chip">Prometheus</span><span class="sk-chip">Grafana</span>
+        <span class="sk-chip">ELK Stack</span>
+      </div>
+    </div>
+    <div class="sk-card glass rise" style="transition-delay:.40s">
+      <div class="sk-head"><div class="sk-ico" style="background:rgba(245,158,11,0.12)">💻</div><div class="sk-h" style="color:#f59e0b">Scripting & Networking</div></div>
+      <div class="sk-chips">
+        <span class="sk-chip prod">Linux Admin</span><span class="sk-chip">Python/Boto3</span>
+        <span class="sk-chip">Bash</span><span class="sk-chip">AWS IAM</span>
+        <span class="sk-chip prod">CCNA R&S</span><span class="sk-chip">TCP/IP</span>
+        <span class="sk-chip">WAF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag">Portfolio</div>
+  <h2 class="section-h2">Featured <span>Projects</span></h2>
+  <div class="proj-g">
+
+    <!-- Production project — highlighted differently -->
+    <div class="proj-cos rise" style="border:1px solid rgba(16,185,129,0.3);background:rgba(16,185,129,0.04);grid-column:1/-1;">
+      <div class="proj-header">
+        <div class="proj-idx" style="color:#10b981">★ PRODUCTION · AUTOMATION</div>
+        <div class="proj-arrow" style="color:#10b981">↗</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;">
+        <div>
+          <div class="proj-title">Intune Device Compliance Health Check (Power Automate)</div>
+          <div class="proj-desc">Independently designed and deployed a daily automated health check for the client, querying Microsoft Intune across <strong style="color:var(--text)">1,000+ managed devices</strong> via Graph API. Delivers a formatted compliance report via email — segregated by PC, Laptop, and Windows device types — plus live connector status for VPP, Autopilot, DEP, and Certificate connectors. Eliminated manual daily checks entirely.</div>
+        </div>
+        <div>
+          <div class="proj-tech" style="margin-bottom:1rem">
+            <span class="tech-cos" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:#10b981">Power Automate</span>
+            <span class="tech-cos" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:#10b981">Graph API</span>
+            <span class="tech-cos" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:#10b981">Azure App Reg.</span>
+            <span class="tech-cos" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:#10b981">Microsoft Intune</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:800;color:#10b981;line-height:1">1000+</div>
+              <div style="font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Devices Monitored</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:800;color:#10b981;line-height:1">Daily</div>
+              <div style="font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Automated Reports</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:800;color:#10b981;line-height:1">4</div>
+              <div style="font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Connectors Tracked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-cos glass rise">
+      <div class="proj-header"><div class="proj-idx">01 · SERVERLESS</div><div class="proj-arrow">↗</div></div>
+      <div class="proj-title">Serverless OTP Verification</div>
+      <div class="proj-desc">Re-architected MFA into fully serverless AWS. Sub-second OTP delivery, zero downtime, ~80% cost savings vs traditional server-based approach.</div>
+      <div class="proj-tech"><span class="tech-cos">Lambda</span><span class="tech-cos">API Gateway</span><span class="tech-cos">DynamoDB</span><span class="tech-cos">SNS</span><span class="tech-cos">S3</span></div>
+      <div class="proj-lnks"><a href="https://github.com/Aushikar-Ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://github.com/Aushikar-Ganesh','_blank');return false;">↗ GitHub</a><a href="https://linkedin.com/in/aushikar-ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://linkedin.com/in/aushikar-ganesh','_blank');return false;">↗ Details</a></div>
+    </div>
+
+    <div class="proj-cos glass rise" style="transition-delay:.1s">
+      <div class="proj-header"><div class="proj-idx">02 · CI/CD</div><div class="proj-arrow">↗</div></div>
+      <div class="proj-title">Dockerized CI/CD on AWS</div>
+      <div class="proj-desc">Ultra-lightweight 5MB Docker image with automated GitHub Actions pipeline. EC2 + Nginx deployment, IAM role-based security, self-hosted runners for cost optimization.</div>
+      <div class="proj-tech"><span class="tech-cos">Docker</span><span class="tech-cos">GitHub Actions</span><span class="tech-cos">EC2</span><span class="tech-cos">Nginx</span><span class="tech-cos">IAM</span></div>
+      <div class="proj-lnks"><a href="https://github.com/Aushikar-Ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://github.com/Aushikar-Ganesh','_blank');return false;">↗ GitHub</a><a href="https://linkedin.com/in/aushikar-ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://linkedin.com/in/aushikar-ganesh','_blank');return false;">↗ Details</a></div>
+    </div>
+
+    <div class="proj-cos glass rise" style="transition-delay:.2s">
+      <div class="proj-header"><div class="proj-idx">03 · KUBERNETES</div><div class="proj-arrow">↗</div></div>
+      <div class="proj-title">Cloud-Native Monitoring App</div>
+      <div class="proj-desc">AWS EKS deployment automated via Python/Boto3 scripts. ~40% faster deploys through automation. LoadBalancer + K8s HPA for high availability.</div>
+      <div class="proj-tech"><span class="tech-cos">AWS EKS</span><span class="tech-cos">ECR</span><span class="tech-cos">Python</span><span class="tech-cos">Boto3</span><span class="tech-cos">Docker</span></div>
+      <div class="proj-lnks"><a href="https://github.com/Aushikar-Ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://github.com/Aushikar-Ganesh','_blank');return false;">↗ GitHub</a></div>
+    </div>
+
+    <div class="proj-cos glass rise" style="transition-delay:.3s">
+      <div class="proj-header"><div class="proj-idx">04 · TERRAFORM</div><div class="proj-arrow">↗</div></div>
+      <div class="proj-title">3-Tier AWS Architecture</div>
+      <div class="proj-desc">Production-grade 3-tier architecture with 99.5% uptime in testing. End-to-end Terraform IaC — EC2, RDS, ALB, and security groups all automated.</div>
+      <div class="proj-tech"><span class="tech-cos">Terraform</span><span class="tech-cos">EC2</span><span class="tech-cos">RDS</span><span class="tech-cos">ALB</span></div>
+      <div class="proj-lnks"><a href="https://github.com/Aushikar-Ganesh" class="proj-lnk" target="_blank" rel="noopener noreferrer" onclick="window.open('https://github.com/Aushikar-Ganesh','_blank');return false;">↗ GitHub</a></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">Career</div>
+  <h2 class="section-h2">Experience & <span>Education</span></h2>
+  <div class="exp-tl">
+
+    <div class="exp-item rise">
+      <div class="exp-dot" style="background:var(--p3);box-shadow:0 0 12px var(--p3)"></div>
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">Cloud Operations Analyst</div>
+          <div class="exp-company" style="color:var(--p3)">Cognizant Technology Solutions · Programmer Analyst</div>
+        </div>
+        <div class="exp-badge" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.25);color:var(--p3)">Dec 2023 – Present</div>
+      </div>
+      <div class="exp-body glass">
+        <ul class="exp-pts">
+          <li>Executed monthly Linux (RHEL/Ubuntu) patching cycles for <strong>50–60 EC2 instances</strong> via AWS SSM Patch Manager, achieving <strong>100% patch compliance</strong> with zero unplanned downtime</li>
+          <li>Monitored production environments using <strong>AWS CloudWatch</strong> dashboards — tracking CPU, memory, and disk metrics; proactively resolved storage issues in coordination with Windows & Linux teams</li>
+          <li>Independently built a <strong>Power Automate + Graph API</strong> daily health check system covering <strong>1,000+ Intune-managed devices</strong>, delivering client-facing compliance reports with connector status (VPP, Autopilot, DEP, Certificate)</li>
+          <li>Managed AWS production services including <strong>EC2, S3, IAM, VPC, Security Groups, Route53</strong> in a cloud operations support capacity</li>
+          <li>Collaborated with developers and senior engineers on SLO alignment and release practices in a large enterprise cloud environment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item rise" style="transition-delay:.1s">
+      <div class="exp-dot" style="background:var(--p2);box-shadow:0 0 12px var(--p2)"></div>
+      <div class="exp-head">
+        <div>
+          <div class="exp-role">CIS Multi-Cloud Intern</div>
+          <div class="exp-company" style="color:var(--p2)">Cognizant Technology Solutions · Programmer Analyst Trainee</div>
+        </div>
+        <div class="exp-badge" style="background:rgba(236,72,153,0.12);border:1px solid rgba(236,72,153,0.25);color:var(--p2)">Sep – Dec 2023</div>
+      </div>
+      <div class="exp-body glass">
+        <ul class="exp-pts">
+          <li>Configured cloud networking & firewall rules across AWS, GCP, and Azure infrastructure</li>
+          <li>Applied <strong>CCNA networking fundamentals</strong> (VLANs, routing, TCP/IP) in real cloud network configuration tasks</li>
+          <li>Gained hands-on exposure to VMware, Hyper-V, Linux admin, and multi-database systems</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="edu-cos glass rise" style="transition-delay:.2s">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-deg">B.Tech — Electronics & Communication Engineering (Lateral Entry)</div>
+      <div class="edu-school">G Pulla Reddy Engineering College · Hyderabad</div>
+      <div class="edu-period">2020 – 2023</div>
+    </div>
+  </div>
+
+  <div class="edu-cos glass rise" style="transition-delay:.3s;margin-top:1rem;">
+    <div class="edu-icon">📜</div>
+    <div>
+      <div class="edu-deg">Diploma — Electronics & Communication Engineering</div>
+      <div class="edu-school">Brindavan Institute of Technology and Science · Hyderabad</div>
+      <div class="edu-period">2017 – 2019 · CCNA R&S curriculum (4 modules, Cisco Networking Academy)</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — links only, no form -->
+<section id="contact">
+  <div class="section-tag">Contact</div>
+  <h2 class="section-h2">Let's build <span>together</span></h2>
+  <div class="contact-solo">
+    <p class="contact-desc rise">Open to Cloud Operations, Junior DevOps, and Modern Workplace roles. Based in Hyderabad — available for remote and on-site opportunities across India.</p>
+    <div class="soc-grid rise" style="transition-delay:0.1s">
+      <a href="https://linkedin.com/in/aushikar-ganesh" class="soc-cos-a glass" target="_blank" rel="noopener noreferrer" onclick="window.open('https://linkedin.com/in/aushikar-ganesh','_blank');return false;">
+        <div class="soc-ico" style="background:rgba(6,182,212,0.12)">💼</div>
+        <div class="soc-label"><span class="soc-label-title">LinkedIn</span><span class="soc-label-sub">linkedin.com/in/aushikar-ganesh</span></div>
+        <span style="margin-left:auto;color:var(--p3);font-size:0.85rem">↗</span>
+      </a>
+      <a href="https://github.com/Aushikar-Ganesh" class="soc-cos-a glass" target="_blank" rel="noopener noreferrer" onclick="window.open('https://github.com/Aushikar-Ganesh','_blank');return false;">
+        <div class="soc-ico" style="background:rgba(124,58,237,0.12)">💻</div>
+        <div class="soc-label"><span class="soc-label-title">GitHub</span><span class="soc-label-sub">github.com/Aushikar-Ganesh</span></div>
+        <span style="margin-left:auto;color:var(--p1);font-size:0.85rem">↗</span>
+      </a>
+      <a href="mailto:aushikarganesh2002@gmail.com" class="soc-cos-a glass">
+        <div class="soc-ico" style="background:rgba(236,72,153,0.12)">📧</div>
+        <div class="soc-label"><span class="soc-label-title">Email</span><span class="soc-label-sub">aushikarganesh2002@gmail.com</span></div>
+        <span style="margin-left:auto;color:var(--p2);font-size:0.85rem">↗</span>
+      </a>
+      <a href="tel:+919948325878" class="soc-cos-a glass">
+        <div class="soc-ico" style="background:rgba(16,185,129,0.12)">📱</div>
+        <div class="soc-label"><span class="soc-label-title">Phone</span><span class="soc-label-sub">+91 9948-32-5878</span></div>
+        <span style="margin-left:auto;color:var(--p4);font-size:0.85rem">↗</span>
+      </a>
+    </div>
+
+    <!-- Resume download button — visible on all devices -->
+    <div class="rise" style="margin-top:2rem;transition-delay:0.2s;">
+      <a href="Aushikar_Ganesh_Resume.pdf" download class="btn-cos pri" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2.5rem;font-size:0.9rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume (PDF)
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div>Aushikar Ganesh · Cloud Operations Engineer · Hyderabad</div>
+  <div>aushikarganesh2002@gmail.com · 2025</div>
+</footer>
+
+<script>
+// Scroll animations
+const obs = new IntersectionObserver(e => {
+  e.forEach(x => { if (x.isIntersecting) x.target.classList.add('up'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rise').forEach(el => obs.observe(el));
+
+// Nav active highlight
+const sections = document.querySelectorAll('section[id], #quote-band');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) cur = s.id;
+  });
+  links.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+});
+
+// Mobile menu
+const mobBtn = document.getElementById('mob-btn');
+const navLinks = document.querySelector('.nav-links');
+mobBtn.addEventListener('click', () => {
+  const open = navLinks.style.display === 'flex';
+  navLinks.style.cssText = open
+    ? ''
+    : 'display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:rgba(8,7,26,0.97);padding:1.5rem 5%;gap:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);z-index:200;';
+  mobBtn.textContent = open ? '☰' : '✕';
+});
+</script>
+</body>
+</html>
