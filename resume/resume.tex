@@ -1,0 +1,367 @@
+%==============================================================================
+%  AUSHIKAR GANESH — RESUME
+%  Compiler : XeLaTeX or pdfLaTeX (both work on Overleaf)
+%  Engine   : Set Overleaf compiler to XeLaTeX for best font rendering
+%==============================================================================
+
+\documentclass[10pt, a4paper]{article}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  top=0.44in, bottom=0.44in,
+  left=0.65in, right=0.65in
+]{geometry}
+
+\usepackage{fontenc}          % font encoding
+\usepackage{inputenc}         % UTF-8 input
+\usepackage{lmodern}          % modern fonts fallback — included in full Overleaf TeX Live
+\usepackage{helvet}           % Helvetica (Arial-like)
+\renewcommand{\familydefault}{\sfdefault}   % use sans-serif throughout
+
+\usepackage{xcolor}           % custom colours
+\usepackage{titlesec}         % section heading styling
+\usepackage{enumitem}         % bullet list control
+\usepackage{tabularx}         % full-width tables
+\usepackage{array}            % table column types
+\usepackage{ragged2e}         % better justification
+\usepackage{microtype}        % microtypography
+\usepackage{parskip}          % paragraph spacing
+\usepackage{setspace}         % line spacing
+\usepackage{multirow}         % table multirow
+\usepackage{fancyhdr}         % header/footer
+\usepackage{lastpage}         % page count
+\usepackage[hidelinks]{hyperref}  % hyperlinks — hidelinks removes coloured boxes
+
+% ── COLOURS ───────────────────────────────────────────────────────────────────
+\definecolor{headblue}{HTML}{1B4F8A}    % section headings
+\definecolor{darkgray}{HTML}{2C2C2C}    % name / role titles
+\definecolor{midgray}{HTML}{444444}     % body text
+\definecolor{lightgray}{HTML}{666666}   % dates / meta
+\definecolor{rulecol}{HTML}{1B4F8A}     % horizontal rules
+\definecolor{linkblue}{HTML}{1B4F8A}    % hyperlink colour
+
+% ── HYPERLINK SETUP ───────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks = true,
+  urlcolor   = linkblue,
+  linkcolor  = linkblue,
+  citecolor  = linkblue,
+  pdftitle   = {Aushikar Ganesh — Resume},
+  pdfauthor  = {Aushikar Ganesh},
+  pdfsubject = {Cloud Operations Engineer Resume}
+}
+
+% ── PAGE STYLE ────────────────────────────────────────────────────────────────
+\pagestyle{empty}             % no page numbers
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% ── SECTION HEADING STYLE ─────────────────────────────────────────────────────
+\titleformat{\section}
+  {\color{headblue}\bfseries\normalsize}
+  {}{0em}{\MakeUppercase}
+  [\vspace{1pt}{\color{rulecol}\hrule}\vspace{4pt}]
+
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% ── BULLET LIST STYLE ─────────────────────────────────────────────────────────
+\setlist[itemize]{
+  leftmargin = 1.4em,
+  label      = \textbullet,
+  itemsep    = 1pt,
+  parsep     = 0pt,
+  topsep     = 2pt,
+  partopsep  = 0pt
+}
+
+% ── CUSTOM COMMANDS ───────────────────────────────────────────────────────────
+
+% Experience entry: role (bold left) + period (italic right)
+\newcommand{\expentry}[3]{%
+  \vspace{6pt}%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    \textbf{\color{darkgray}#1} & \textit{\color{lightgray}#3}
+  \end{tabularx}\\[-2pt]
+  \textit{\color{headblue}\small #2}%
+  \vspace{3pt}%
+}
+
+% Project entry: title (bold) | tech stack (italic gray)
+\newcommand{\projentry}[2]{%
+  \vspace{5pt}%
+  \noindent
+  \textbf{\color{darkgray}#1}\;{\color{lightgray}\small\textit{| #2}}%
+  \vspace{2pt}%
+}
+
+% Skills row: bold label left, value right
+\newcommand{\skillrow}[2]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}>{\bfseries\color{midgray}}p{2.4cm}@{\hspace{6pt}}X@{}}
+    #1 & {\color{lightgray}#2}
+  \end{tabularx}\\[2pt]
+}
+
+% Cert row: cert name left, date right
+\newcommand{\certrow}[2]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}X r@{}}
+    {\color{midgray}#1} & {\color{lightgray}\small #2}
+  \end{tabularx}\\[2pt]
+}
+
+%==============================================================================
+\begin{document}
+%==============================================================================
+
+% ── NAME ──────────────────────────────────────────────────────────────────────
+\begin{center}
+  {\huge\bfseries\color{darkgray} AUSHIKAR GANESH}\\[4pt]
+  {\normalsize\color{headblue}\textit{Cloud Operations Engineer \ $|$ \ AWS Certified Solutions Architect}}\\[6pt]
+  {\small\color{lightgray}
+    +91 9948-32-5878
+    \ $\cdot$\ 
+    \href{mailto:aushikarganesh2002@gmail.com}{aushikarganesh2002@gmail.com}
+    \ $\cdot$\ 
+    \href{https://www.linkedin.com/in/aushikar-ganesh}{linkedin.com/in/aushikar-ganesh}
+    \ $\cdot$\ 
+    \href{https://github.com/Aushikar-Ganesh}{github.com/Aushikar-Ganesh}
+  }
+\end{center}
+
+\vspace{1pt}
+{\color{rulecol}\hrule}
+\vspace{6pt}
+
+% ── PROFESSIONAL SUMMARY ──────────────────────────────────────────────────────
+\section{Professional Summary}
+
+{\color{midgray}
+AWS Certified Solutions Architect with hands-on production experience in cloud operations,
+Linux server administration, and AWS infrastructure management. Skilled in monitoring
+production environments using CloudWatch, performing automated Linux patching via AWS SSM,
+and independently building automation tools using Power Automate and Microsoft Graph API.
+Developed personal projects covering Lambda, Kubernetes, Terraform, and CI/CD pipelines.
+Holds CCNA-level networking knowledge and strong fundamentals in multi-cloud environments.
+Eager to grow into a DevOps/Cloud Engineer role.
+}
+
+% ── PROFESSIONAL EXPERIENCE ───────────────────────────────────────────────────
+\section{Professional Experience}
+
+\expentry%
+  {Cloud Operations Analyst (Programmer Analyst)}%
+  {Cognizant Technology Solutions \ --- \ Bengaluru, India}%
+  {Dec 2023 -- Present}
+
+\begin{itemize}
+  \item \textbf{Monthly Linux Patching via AWS SSM:} Planned and executed end-to-end
+        month-end patching cycles for \textbf{50--60 Linux (RHEL/Ubuntu) EC2 instances}
+        using AWS Systems Manager (SSM) Patch Manager, achieving
+        \textbf{100\% patch compliance} each cycle with zero unplanned downtime.
+
+  \item \textbf{Production Environment Monitoring:} Monitored CPU utilisation, memory,
+        and disk storage metrics across production servers using \textbf{AWS CloudWatch
+        dashboards and alerts}. Identified and resolved disk space issues proactively
+        by coordinating with the Windows and Linux server teams.
+
+  \item \textbf{Intune Health Check Automation (Power Automate + Graph API):}
+        Independently designed and deployed a daily automated health check report for
+        the client using \textbf{Microsoft Power Automate, Microsoft Graph API, and
+        Azure App Registration}. The solution queries Microsoft Intune daily across
+        a fleet of \textbf{1,000+ managed devices}, segregated by device type (PC,
+        Laptop, Windows), and delivers a formatted compliance dashboard via email ---
+        reporting compliant vs.\ non-compliant device counts and live \textbf{connector
+        status (VPP, Autopilot, DEP, Certificate connectors)}. Eliminated the need
+        for manual daily checks.
+
+  \item \textbf{Incident Communication \& Coordination:} Raised and tracked server
+        health tickets; collaborated cross-functionally with Windows and application
+        teams to clear storage and restore performance on production systems.
+
+  \item \textbf{AWS Infrastructure Exposure:} Worked with EC2, S3, IAM, VPC, Security
+        Groups, and Route53 in a production support capacity. Gained hands-on
+        familiarity with ALB, ASG, RDS, and Redis as part of the broader cloud
+        operations team.
+
+  \item \textbf{SLO Awareness:} Collaborated with developers and senior engineers to
+        understand service-level objectives and standard release practices in a large
+        enterprise cloud environment.
+\end{itemize}
+
+\vspace{4pt}
+
+\expentry%
+  {CIS Multi-Cloud Intern (Programmer Analyst Trainee)}%
+  {Cognizant Technology Solutions \ --- \ Hyderabad, India}%
+  {Sep 2023 -- Dec 2023}
+
+\begin{itemize}
+  \item Configured cloud networking and firewall rules across multi-cloud infrastructure
+        (AWS, GCP, Azure) as part of the Cloud Infrastructure Services team.
+
+  \item Refreshed and applied \textbf{CCNA networking fundamentals} --- including VLANs,
+        routing protocols, and TCP/IP --- in cloud network configuration tasks.
+
+  \item Gained practical exposure to VMware, Hyper-V virtualisation, Linux server
+        administration, and multi-database environments.
+\end{itemize}
+
+% ── PERSONAL PROJECTS ─────────────────────────────────────────────────────────
+\section{Personal Projects}
+
+{\small\color{lightgray}\textit{Self-initiated projects built to develop hands-on skills
+beyond day-to-day work responsibilities.}}
+
+\vspace{4pt}
+
+\projentry%
+  {Serverless OTP Verification System}%
+  {AWS Lambda $\cdot$ API Gateway $\cdot$ DynamoDB $\cdot$ SNS $\cdot$ S3 $\cdot$ JavaScript}
+
+\begin{itemize}
+  \item Designed and deployed a real-time OTP authentication system on AWS using a
+        fully serverless architecture --- achieving sub-second OTP delivery and zero
+        downtime.
+  \item Estimated \textbf{\textasciitilde80\% cost saving} vs.\ a traditional
+        server-based approach by leveraging Lambda, DynamoDB, and SNS.
+  \item REST endpoints exposed via API Gateway; static assets hosted on S3.
+        \hfill
+        \href{https://github.com/Aushikar-Ganesh}{\textcolor{linkblue}{GitHub $\nearrow$}}
+\end{itemize}
+
+\projentry%
+  {Dockerized CI/CD Deployment on AWS}%
+  {Docker $\cdot$ GitHub Actions $\cdot$ Nginx $\cdot$ AWS EC2 $\cdot$ IAM $\cdot$ Bash}
+
+\begin{itemize}
+  \item Containerised a web application into an ultra-lightweight \textbf{5\,MB Docker
+        image} using multi-stage builds to minimise deployment footprint.
+  \item Automated CI/CD pipeline with GitHub Actions: builds, tests, and deploys
+        containers on every Git push to an EC2 instance behind Nginx reverse proxy.
+  \item Configured AWS IAM role-based access and automated server setup via Bash;
+        used self-hosted GitHub runners on EC2 to reduce pipeline costs.
+        \hfill
+        \href{https://github.com/Aushikar-Ganesh}{\textcolor{linkblue}{GitHub $\nearrow$}}
+\end{itemize}
+
+\projentry%
+  {Cloud-Native Monitoring Application on AWS EKS}%
+  {AWS EKS $\cdot$ ECR $\cdot$ Python $\cdot$ Boto3 $\cdot$ Docker}
+
+\begin{itemize}
+  \item Deployed a containerised monitoring app on AWS EKS; automated cluster and
+        deployment provisioning using a \textbf{Python/Boto3 script}, reducing manual
+        deploy time by an estimated \textbf{\textasciitilde40\%}.
+  \item Configured Kubernetes LoadBalancer service and Horizontal Pod Autoscaler for
+        high availability under variable load.
+        \hfill
+        \href{https://github.com/Aushikar-Ganesh}{\textcolor{linkblue}{GitHub $\nearrow$}}
+\end{itemize}
+
+\projentry%
+  {3-Tier Web Application on AWS (Terraform)}%
+  {AWS EC2 $\cdot$ RDS $\cdot$ ALB $\cdot$ Terraform}
+
+\begin{itemize}
+  \item Designed and provisioned a production-grade 3-tier architecture (web, app,
+        database) on AWS using Terraform IaC, achieving \textbf{99.5\% simulated
+        uptime} in testing.
+  \item Automated all infrastructure --- EC2 instances, RDS database, Application
+        Load Balancer, and security groups --- via reusable Terraform modules.
+        \hfill
+        \href{https://github.com/Aushikar-Ganesh}{\textcolor{linkblue}{GitHub $\nearrow$}}
+\end{itemize}
+
+% ── TECHNICAL SKILLS ──────────────────────────────────────────────────────────
+\section{Technical Skills}
+
+\skillrow{Cloud Platforms}{%
+  AWS (EC2, S3, IAM, VPC, Route53, CloudWatch, SSM, RDS, Lambda, API Gateway,
+  SNS, DynamoDB, ALB, ASG) \ $|$ \ Azure (App Registration, Intune, Graph API,
+  Power Automate) \ $|$ \ GCP}
+
+\skillrow{Automation \& IaC}{%
+  Power Automate \textnormal{(production)} \ $|$ \
+  Microsoft Graph API \textnormal{(production)} \ $|$ \
+  AWS SSM Patch Manager \textnormal{(production)} \ $|$ \
+  Terraform \textnormal{(projects)} \ $|$ \
+  Docker \ $|$ \
+  Kubernetes/EKS \textnormal{(projects)}}
+
+\skillrow{CI/CD}{%
+  GitHub Actions \textnormal{(projects)} \ $|$ \
+  Jenkins \textnormal{(foundational)} \ $|$ \
+  GitLab CI \textnormal{(foundational)} \ $|$ \
+  AWS CodePipeline \textnormal{(foundational)}}
+
+\skillrow{Monitoring}{%
+  AWS CloudWatch \textnormal{(production)} \ $|$ \
+  Prometheus \ $|$ \ Grafana \ $|$ \ ELK Stack}
+
+\skillrow{Scripting}{%
+  Bash \ $|$ \ Python / Boto3 \textnormal{(projects)}}
+
+\skillrow{Networking}{%
+  CCNA R\&S (Cisco certified --- 2019) \ $|$ \
+  VLANs, Routing Protocols, TCP/IP, Firewalls, VPN}
+
+\skillrow{OS / Security}{%
+  Linux --- RHEL, Ubuntu \textnormal{(production)} \ $|$ \
+  Windows Server \ $|$ \
+  AWS IAM \ $|$ \ Security Groups \ $|$ \ Bastion Host}
+
+% ── CERTIFICATIONS ────────────────────────────────────────────────────────────
+\section{Certifications}
+
+\certrow%
+  {\href{https://www.credly.com/badges/83dabaf0548f404da8dcdc8ddbaccccf}%
+    {AWS Solutions Architect -- Associate} \
+    \textnormal{\small(Credential ID: 83dabaf0548f404da8dcdc8ddbaccccf)}}%
+  {May 2025}
+
+\certrow%
+  {\href{https://www.credly.com/badges/44783f7efc8d4cf38ab6d43ddffa8a74}%
+    {AWS Certified Cloud Practitioner} \
+    \textnormal{\small(Credential ID: 44783f7efc8d4cf38ab6d43ddffa8a74)}}%
+  {Nov 2024}
+
+\certrow%
+  {Real-time Multi Cloud \& DevOps Bootcamp \ \textnormal{\small(Udemy / Online Platform)}}%
+  {Completed}
+
+\certrow%
+  {CCNA R\&S --- Connecting Networks \ \textnormal{\small(Cisco Networking Academy)}}%
+  {Dec 2019}
+
+\certrow%
+  {CCNA R\&S --- Scaling Networks \ \textnormal{\small(Cisco Networking Academy)}}%
+  {Dec 2019}
+
+\certrow%
+  {CCNA R\&S --- Introduction to Networks \ \textnormal{\small(Cisco Networking Academy)}}%
+  {Sep 2019}
+
+\certrow%
+  {CCNA R\&S --- Routing \& Switching Essentials \ \textnormal{\small(Cisco Networking Academy)}}%
+  {Sep 2019}
+
+% ── EDUCATION ─────────────────────────────────────────────────────────────────
+\section{Education}
+
+\expentry%
+  {B.Tech -- Electronics \& Communication Engineering (Lateral Entry)}%
+  {G Pulla Reddy Engineering College \ --- \ Kurnool, India}%
+  {2020 -- 2023}
+
+\expentry%
+  {Diploma -- Electronics \& Communication Engineering}%
+  {Brindavan Institute of Technology and Science \ --- \ Kurnool, India}%
+  {2017 -- 2020}
+
+{\small\color{lightgray}Completed CCNA R\&S curriculum (4 modules, Cisco Networking Academy) during this period.}
+
+%==============================================================================
+\end{document}
+%==============================================================================
