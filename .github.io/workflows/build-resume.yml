@@ -1,0 +1,38 @@
+name: Build Resume PDF
+
+on:
+  push:
+    paths:
+      - 'resume/*.tex'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+          working_directory: resume
+
+      - name: Replace PDF
+        run: |
+          cp resume/resume.pdf Aushikar_Ganesh_Resume.pdf
+
+      - name: Commit Updated PDF
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+
+          git add Aushikar_Ganesh_Resume.pdf
+
+          git diff --cached --quiet || (
+            git commit -m "Auto update resume PDF"
+            git push
+          )
