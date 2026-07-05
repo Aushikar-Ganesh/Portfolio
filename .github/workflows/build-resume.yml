@@ -2,27 +2,30 @@ name: Build Resume PDF
 
 on:
   push:
-    branches: [main]
     paths:
-      - 'Aushikar_Ganesh_Resume.tex'
+      - 'resume/*.tex'
 
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # ← forces Node 24 per GitHub's guidance
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5             # ← v5 is the first version using Node 24
 
       - name: Compile LaTeX
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v3        # Docker action — unaffected, leave as is
         with:
-          root_file: Aushikar_Ganesh_Resume.tex
+          root_file: resume.tex
+          working_directory: resume
 
-      - name: Rename PDF
-        run: cp Aushikar_Ganesh_Resume.pdf Aushikar_Ganesh_Resume.pdf || true
+      - name: Replace PDF
+        run: |
+          cp resume/resume.pdf Aushikar_Ganesh_Resume.pdf
 
       - name: Commit Updated PDF
         run: |
