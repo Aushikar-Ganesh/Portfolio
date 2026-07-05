@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'resume/*.tex'
+      - 'index.html'
+  workflow_dispatch:  # Allows manual trigger from GitHub Actions tab
 
 permissions:
   contents: write
